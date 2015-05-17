@@ -14,6 +14,8 @@ As a user, I desire:
 8. As a user, I want to edit wikis using Markdown syntax.
 9. As a premium user, I want to add and remove collaborators for my private wikis.
 
+Hosted @Heroku: [http://singleton-blocipedia.herokuapp.com]
+
 
 
 Please feel free to use a different markup language if you do not plan to run
