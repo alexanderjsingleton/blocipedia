@@ -40,6 +40,6 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'faker'
 gem 'figaro', '1.0'
-gem 'faker'
 gem 'pundit'
+gem 'stripe'
 
