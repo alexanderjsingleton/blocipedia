@@ -1,6 +1,9 @@
 <h1><%= @wiki.title %></h1>
- <% if policy(@wiki).edit? %>
-  <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>
- <% end %>
- 
 <p><%= @wiki.body %></p>
+
+<% if policy(@wiki).edit? %>
+  <%= link_to " Edit", edit_wiki_path(@wiki), id: "edit", class: 'btn btn-success glyphicon glyphicon-edit' %>
+<% end %>
+<% if policy(@wiki).destroy? %>
+  <%= link_to " Delete", @wiki, method: :delete, id: 'delete', class: 'btn btn-danger glyphicon glyphicon-remove' %>
+<% end %>

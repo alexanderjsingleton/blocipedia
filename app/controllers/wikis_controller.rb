@@ -1,11 +1,22 @@
 class WikisController < ApplicationController
+  # def index
+  #   @wikis = Wiki.all
+  #     authorize @wikis
+  # end
+
   def index
-    @wikis = Wiki.all
-      authorize @wikis
+    if user_signed_in? && current_user.role == 'premium'
+      @private_wikis = Wiki.where("user_id = ? AND private = ?", current_user.id, true)
+    end
+    @public_wikis = Wiki.where("private = ?", false)
   end
 
-  def show
+ def show
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
+    if request.path != wiki_path(@wiki)
+      redirect_to @wiki, status: :moved_permanently
+    end
   end
 
   def new
@@ -20,6 +31,7 @@ class WikisController < ApplicationController
 
   def create
     @wiki = Wiki.new(params.require(:wiki).permit(:title, :body))
+    @wiki.user = current_user
       authorize @wiki
     if @wiki.save
       flash[:notice] = "Wiki was saved."

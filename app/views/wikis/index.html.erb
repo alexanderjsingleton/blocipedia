@@ -1,14 +1,38 @@
-<h1>All Wikis</h1>
-<% if policy(Wiki.new).create? %>
-  <%= link_to "New Wiki", new_wiki_path, class: 'btn btn-success' %>
-<% end %>
-<% @wikis.each do |wiki| %>
-  <div class="media">
-     <div class="media-body">
-       <h4 class="media-heading">
-         <%= link_to wiki.title, wiki %>
-       </h4>
-     </div>
-   </div>
-  
-<% end %>
+<div class="jumbotron">
+  <h1>Blocipedia</h1>
+  <p>Create your own wikis!</p>
+  <% if current_user == nil %>
+  <p>
+      <%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary' %>
+      <%= link_to "Sign In", new_user_session_path, class: 'btn btn-primary' %> 
+  </p>
+  <% elsif current_user.role == 'standard'  %>
+    <h3>Upgrade your account to create your own private wikis!</h3>
+    <%= link_to "Upgrade", new_charge_path, id: 'upgrade', class: 'btn btn-primary' %>
+  <% end %>
+</div>
+<div class="row">
+  <div class="col-md-8">
+    <% if user_signed_in? && current_user.role == 'premium' %>
+      <h1>Private Wikis</h1>
+      <ul class="list-group bloc-index">
+        <% if @private_wikis.empty? %>
+          <h4>You have no private wikis in your account. <%= link_to "Create a private wiki now.", new_wiki_path(@wiki)  %> </h4>
+        <% else %>
+          <% @private_wikis.each do |wiki| %>
+             <li class="list-group-item"><%= link_to wiki.title, wiki %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    <% end %>
+    <h1>Public Wikis</h1>
+    <ul class="list-group bloc-index">
+      <% @public_wikis.each do |wiki| %>
+        <li class="list-group-item"><%= link_to wiki.title, wiki %></li>
+      <% end %>
+    </ul>
+    <% if policy(Wiki.new).create? %>
+    <%= link_to " New", new_wiki_path(@wiki), class: 'btn btn-success glyphicon glyphicon-plus' %>
+    <% end %>
+  </div>
+</div>
