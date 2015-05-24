@@ -20,7 +20,7 @@
           <h4>You have no private wikis in your account. <%= link_to "Create a private wiki now.", new_wiki_path(@wiki)  %> </h4>
         <% else %>
           <% @private_wikis.each do |wiki| %>
-             <li class="list-group-item"><%= link_to wiki.title, wiki %></li>
+             <li class="list-group-item"><%= link_to (markdown_to_html wiki.title), wiki %></li>
           <% end %>
         <% end %>
       </ul>
@@ -28,7 +28,7 @@
     <h1>Public Wikis</h1>
     <ul class="list-group bloc-index">
       <% @public_wikis.each do |wiki| %>
-        <li class="list-group-item"><%= link_to wiki.title, wiki %></li>
+        <li class="list-group-item"><%= link_to (markdown_to_html wiki.title), wiki %></li>
       <% end %>
     </ul>
     <% if policy(Wiki.new).create? %>
