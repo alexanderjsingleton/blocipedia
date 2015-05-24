@@ -5,13 +5,14 @@ class WikisController < ApplicationController
   # end
 
   def index
+    # puts "this is the#{current_user.role}"
     if user_signed_in? && current_user.role == 'premium'
       @private_wikis = Wiki.where("user_id = ? AND private = ?", current_user.id, true)
     end
     @public_wikis = Wiki.where("private = ?", false)
   end
 
- def show
+  def show
     @wiki = Wiki.find(params[:id])
     authorize @wiki
     if request.path != wiki_path(@wiki)
@@ -30,7 +31,7 @@ class WikisController < ApplicationController
   end
 
   def create
-    @wiki = Wiki.new(params.require(:wiki).permit(:title, :body))
+    @wiki = Wiki.new(params.require(:wiki).permit(:title, :body, :private))
     @wiki.user = current_user
       authorize @wiki
     if @wiki.save
