@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  get 'collaborators/index'
+
+  get 'collaborators/show'
+
+  get 'collaborators/new'
+
+  get 'collaborators/edit'
+
   devise_for :users
   resources :users, only: [:update] do
     post "downgrade"
