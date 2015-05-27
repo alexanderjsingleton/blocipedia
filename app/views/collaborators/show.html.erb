@@ -1,2 +1,42 @@
-<h1>Collaborators#show</h1>
-<p>Find me in app/views/collaborators/show.html.erb</p>
+<%= form_for ([@wiki, @collaborator]) do |f| %>
+  <% if @collaborator.errors.any? %>
+    <div class="alert alert-danger">
+      <h4>There are <%= pluralize(@collaborator.errors.count, "error") %>.</h4>
+      <ul>
+        <% @collaborator.errors.full_messages.each do |msg| %>
+         <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class='row'>
+    <div class='col-md-6'>
+      <% if current_user.admin? || current_user.premium? && current_user == wiki.user %>
+      <h3>Add Collaborators</h3>
+      <table class="table table-striped">
+      <tbody>
+      <% users.each do |user| %>
+        <%= form_for [wiki, collaborator] do |f| %>
+          <tr>
+            <td>
+            <%= user.name %>
+            <%= f.hidden_field :wiki_id, value: wiki.id %>
+            <%= f.hidden_field :user_id, value: user.id %>
+            </td>
+            <% if wiki.users.include?(user) %>
+              <% collaborator = Collaborator.where(user_id: user.id, wiki_id: wiki.id).first %>
+              <td>
+                <%= link_to "", [wiki, collaborator], method: :delete, data: { confirm: 'Are you sure you want to remove collaborator?'}, class: 'btn btn-danger btn glyphicon glyphicon-remove-sign bloc_right'%>  
+              </td>
+            <% else %>
+              <td>
+                <%= f.submit "+", class: 'btn btn-success btn plus bloc_right' %>
+              </td>
+            <% end %> 
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
