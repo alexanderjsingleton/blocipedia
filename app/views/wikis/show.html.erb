@@ -7,3 +7,13 @@
 <% if policy(@wiki).destroy? %>
   <%= link_to " Delete", @wiki, method: :delete, id: 'delete', class: 'btn btn-danger glyphicon glyphicon-remove' %>
 <% end %>
+
+<%= form_for [@wiki, Collaboration.new], url: "/wikis/#{@wiki.id}/collaborators" do |f| %>
+
+  <%= f.label :user %>
+  <%= f.collection_select(:user_id, @users, :id, :name) %>
+  <%= f.submit "Add Collaborator" %>
+
+<% end %>
+
+<%= @collaborators.inspect %>

@@ -1,9 +1,8 @@
 class CollaboratorsController < ApplicationController
 
   def create
-    @wiki = Wiki.friendly.find(params[:wiki_id])
-    @collaborator = @wiki.collaborators.build(collaborator_params)
-
+    @wiki = Wiki.find(params[:wiki_id])
+    @collaborator = Collaboration.new( user_id: collaborator_params[:user_id], wiki_id: params[:wiki_id] )
     if @collaborator.save
       flash[:notice] = "Collaborator was saved."
     else
@@ -26,10 +25,13 @@ class CollaboratorsController < ApplicationController
     redirect_to edit_wiki_path(@wiki)
   end
 
+
+  
+
   
   private
 
   def collaborator_params
-    params.require(:collaborator).permit(:user_id, :wiki_id)
+    params.require(:collaboration).permit(:user_id, :wiki_id)
   end
 end

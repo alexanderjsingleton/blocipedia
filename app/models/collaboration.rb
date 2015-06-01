@@ -1,9 +1,9 @@
 class Collaboration < ActiveRecord::Base
   belongs_to :wiki
-  belongs_to :collaborator, class_name: 'User'
+  belongs_to :user
   
   def self.collaborators
-    User.where(id: pluck(:collaborator_id))
+    User.where(id: pluck(:user_id))
   end
 
   def self.wikis

@@ -13,6 +13,6 @@ class Wiki < ActiveRecord::Base
   end
 
   def collaborators
-    collaborations.collaborators
+    collaborations.collect(&:user)
   end
 end
