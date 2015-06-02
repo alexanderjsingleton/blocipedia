@@ -12,6 +12,18 @@ class CollaboratorsController < ApplicationController
     redirect_to edit_wiki_path(@wiki)
   end
 
+ 
+   def show
+    @wiki = Wiki.find(params[:id])
+    @users = User.all.reject { |u| u.id == current_user.id }
+    @collaborators = @wiki.collaborators
+
+    authorize @wiki
+    # if request.path != wiki_path(@wiki)
+    #   redirect_to @wiki, status: :moved_permanently
+    # end
+  end
+
   def destroy
     @wiki = Wiki.friendly.find(params[:wiki_id])
     @collaborator = @wiki.collaborators.find(params[:id])

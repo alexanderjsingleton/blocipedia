@@ -8,12 +8,38 @@
   <%= link_to " Delete", @wiki, method: :delete, id: 'delete', class: 'btn btn-danger glyphicon glyphicon-remove' %>
 <% end %>
 
-<%= form_for [@wiki, Collaboration.new], url: "/wikis/#{@wiki.id}/collaborators" do |f| %>
+<div class='row'>
+  <div class="col-md-6">
+    <% if current_user.admin? || current_user.premium? && current_user == wiki.user %>
+      <h3>Collaborators Added</h3>
+      <table class="table table-striped">
+      <tbody>
+     
+     
+       <%= @collaborators.each do |user|  %>
+         
+          <td><%= user.id %></td>
+          <td><%= user.name %>/<td>
+          <td><%= user.email %>/<td>
+       
+      
+       <% end %>
+     </tbody>
+    
 
-  <%= f.label :user %>
-  <%= f.collection_select(:user_id, @users, :id, :name) %>
-  <%= f.submit "Add Collaborator" %>
 
-<% end %>
+      <%= form_for [@wiki, Collaboration.new], url: "/wikis/#{@wiki.id}/collaborators" do |f| %>
+        <div class="form-group">
+          
+            <%= f.collection_select(:user_id, @users, :id, :name) %>
+            <%= f.submit "Add Collaborator" %>
+          
+      </div>
 
-<%= @collaborators.inspect %>
+
+      
+      <% end %>
+    <% end %>
+  
+  </div>
+</div>
