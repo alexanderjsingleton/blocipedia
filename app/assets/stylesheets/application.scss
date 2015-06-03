@@ -13,13 +13,68 @@
  *= require_tree .
  *= require_self
  */
- @import "bootstrap-sprockets";
- @import "bootstrap";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
 
 .user-info {
   margin-top: 9px;
- }
- 
+}
+
 .nav {
   margin-top: 5px;
- }
+}
+
+li a {
+  font-size: 1.2em;
+}
+
+ul.bloc-index li:nth-child(even){
+  background-color: #dcdcdc;
+}
+ul.bloc-index li:nth-child(odd){
+  background-color: #aaaaaa;
+}
+
+.amount {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.danger {
+  color: red;
+  font-weight: bold;
+  border: 2px solid red;
+  padding: 10px;
+}
+
+#epiceditor {
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#epiceditor:focus {
+  border-color: #66afe9;
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.private_check {
+  margin-left: 20px;
+}
+
+input.btn.btn-success.btn.plus {
+  width: 40px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.bloc_right {
+  float: right;
+}

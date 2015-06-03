@@ -44,4 +44,5 @@ gem 'pundit'
 gem 'stripe'
 gem 'friendly_id'
 gem 'redcarpet'
+gem 'epic-editor-rails'
 

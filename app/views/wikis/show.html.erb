@@ -8,7 +8,7 @@
   <% end %>
 <div class='row'>
   <div class="col-md-6">
-    <% if current_user.admin? || current_user.premium? && current_user == wiki.user %>
+    <% if current_user.role == 'admin' || current_user.role == 'premium' && current_user == @wiki.user %>
       <h3>Collaborators Added</h3>
         <table class="table table-striped">
           <%= form_for [@wiki, Collaboration.new], url: "/wikis/#{@wiki.id}/collaborators" do |f| %>
